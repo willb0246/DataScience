@@ -4,6 +4,7 @@ from sklearn import preprocessing
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
+from imblearn.over_sampling import SMOTE
 
 # IDK what this does, so it is left out for now
 #import seaborn as sns
@@ -34,6 +35,13 @@ data_vars=data.columns.values.tolist()
 to_keep=[i for i in data_vars if i not in cat_vars]
 data_final=data[to_keep]
 
+# y here is the 0 / 1 column that is the DV in question
+X = data_final.loc[:, data_final.columns != 'y']
+Y = data_final.loc[:, data_final.columns == 'y']
+
+os = SMOTE(random_state=0)                                  #find out what test size does
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=0)
+columns = X_train.columns
 
 
 
