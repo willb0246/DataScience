@@ -37,12 +37,19 @@ data_final=data[to_keep]
 
 # y here is the 0 / 1 column that is the DV in question
 X = data_final.loc[:, data_final.columns != 'y']
-Y = data_final.loc[:, data_final.columns == 'y']
+y = data_final.loc[:, data_final.columns == 'y']
 
 os = SMOTE(random_state=0)                                  #find out what test size does
-X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3, random_state=0)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=0)
 columns = X_train.columns
 
-
+os_data_X, os_data_y = os.fit_sample(X_train, y_train)
+os_data_X = pd.DataFrame(data=os_data_X, columns=columns)
+os_data_y = pd.DataFrame(data=os_data_y, columns=['y'])
+print("length of oversampled data is ",len(os_data_X))
+print("Number of no subscription in oversampled data",len(os_data_y[os_data_y['y']==0]))
+print("Number of subscription",len(os_data_y[os_data_y['y']==1]))
+print("Proportion of no subscription data in oversampled data is ",len(os_data_y[os_data_y['y']==0])/len(os_data_X))
+print("Proportion of subscription data in oversampled data is ",len(os_data_y[os_data_y['y']==1])/len(os_data_X))
 
 
