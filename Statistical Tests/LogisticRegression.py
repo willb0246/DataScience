@@ -5,6 +5,9 @@ import matplotlib.pyplot as plt
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from imblearn.over_sampling import SMOTE
+import pickle
+
+pikl_file = 'Pickle_ML_File.pkl'
 
 # IDK what this does, so it is left out for now
 #import seaborn as sns
@@ -46,10 +49,27 @@ columns = X_train.columns
 os_data_X, os_data_y = os.fit_sample(X_train, y_train)
 os_data_X = pd.DataFrame(data=os_data_X, columns=columns)
 os_data_y = pd.DataFrame(data=os_data_y, columns=['y'])
-print("length of oversampled data is ",len(os_data_X))
-print("Number of no subscription in oversampled data",len(os_data_y[os_data_y['y']==0]))
-print("Number of subscription",len(os_data_y[os_data_y['y']==1]))
-print("Proportion of no subscription data in oversampled data is ",len(os_data_y[os_data_y['y']==0])/len(os_data_X))
-print("Proportion of subscription data in oversampled data is ",len(os_data_y[os_data_y['y']==1])/len(os_data_X))
+#print("length of oversampled data is ",len(os_data_X))
+#print("Number of no subscription in oversampled data",len(os_data_y[os_data_y['y']==0]))
+#print("Number of subscription",len(os_data_y[os_data_y['y']==1]))
+#print("Proportion of no subscription data in oversampled data is ",len(os_data_y[os_data_y['y']==0])/len(os_data_X))
+#print("Proportion of subscription data in oversampled data is ",len(os_data_y[os_data_y['y']==1])/len(os_data_X))
 
+data_final_vars=data_final.columns.values.tolist()
+y=['y']
+X=[i for i in data_final_vars if i not in y]
+
+#imported down here so that I know where it starts being used
+from sklearn.feature_selection import RFE
+from sklearn.linear_model import LogisticRegression
+
+logreg = LogisticRegression(max_iter=10000)
+
+rfe = RFE(logreg, 20)
+rfe = rfe.fit(os_data_X, os_data_y.values.ravel())
+print(rfe.support_)
+print(rfe.ranking_)
+
+with open(pikl_file, 'wb') as file:
+    pickle.dump(rfe, file)
 
