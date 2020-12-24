@@ -1,5 +1,8 @@
 import pickle
 
-model = pickle.load(open('model_attempt.sav', 'rb'))
+model = pickle.load(open('Pickle_ML_File.pkl', 'rb'))
 
-print(model)
+print(model.support_)
+print(model.ranking_)
+
+#print(model)
