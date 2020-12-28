@@ -70,6 +70,12 @@ rfe = rfe.fit(os_data_X, os_data_y.values.ravel())
 print(rfe.support_)
 print(rfe.ranking_)
 
+cols=['euribor3m', 'job_blue-collar', 'job_housemaid', 'marital_unknown', 'education_illiterate', 'default_no', 'default_unknown',
+      'contact_cellular', 'contact_telephone', 'month_apr', 'month_aug', 'month_dec', 'month_jul', 'month_jun', 'month_mar',
+      'month_may', 'month_nov', 'month_oct', "poutcome_failure", "poutcome_success"]
+X=os_data_X[cols]
+y=os_data_y['y']
+
 with open(pikl_file, 'wb') as file:
     pickle.dump(rfe, file)
 
