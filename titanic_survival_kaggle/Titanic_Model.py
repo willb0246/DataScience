@@ -44,10 +44,16 @@ X = training_model[features]
 
 titanic_model = RandomForestRegressor(random_state=1)
 titanic_model.fit(X, y)
-
 tm_val_pred = titanic_model.predict(test_X)
 # use MAE to assess how good/poor our model is
 # tm_val_mae = mean_absolute_error(val_y, tm_val_pred)
-score = titanic_model.score(X, y)
-acc_titanic_model = round(score * 100, 2)
-print(acc_titanic_model)
+rand_forest_score = titanic_model.score(X, y)
+acc_titanic_model = round(rand_forest_score * 100, 2)
+print("Rand Forest: ", acc_titanic_model)
+
+decision_tree_regression = DecisionTreeRegressor(random_state=1)
+decision_tree_regression.fit(X, y)
+dec_tree_pred = decision_tree_regression.predict(test_X)
+dec_tree_score = decision_tree_regression.score(X, y)
+acc_dec_tree = round(dec_tree_score * 100, 2)
+print("Decision Tree: ", acc_dec_tree)
