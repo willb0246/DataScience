@@ -38,6 +38,9 @@ df_train = pd.read_csv('initial_train.csv')
 df_train.dropna()
 pd.set_option('display.max_columns', None)
 
+# drop columns that I think are going to be cofounders
+df_train = df_train.drop(['SaleType', 'SaleCondition'], axis=1)
+
 '''
 # correlation heat map
 corrmat = df_train.corr()
@@ -77,9 +80,15 @@ y = df_train['SalePrice']
 NaNFinder = np.where(np.isnan(df_train))
 
 model = LinearRegression()
-rfe = RFE(model, 8)
+rfe = RFE(model, 12)
 rfe = rfe.fit(X, y)
 print('Selected features: %s' % list(X.columns[rfe.support_]))
+
+#
+# next step is to test this model against the testing data set
+#
+#
+
 #plt.show()
 
 # Selected features: ['OverallQual', 'YearBuilt', 'YearRemodAdd', '1stFlrSF', '2ndFlrSF', 'FullBath', 'Fireplaces', 'GarageCars']
