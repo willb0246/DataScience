@@ -34,4 +34,17 @@ Index(['Id', 'MSSubClass', 'MSZoning', 'LotFrontage', 'LotArea', 'Street',
 df_train = pd.read_csv('initial_train.csv')
 df_train.dropna()
 pd.set_option('display.max_columns', None)
-print(df_train.describe())
+
+# this script outputs a list of int64 columns, then runs for loop. For every var in list it correlates the var with SalePrice
+# then it prints any correlations that have an absolute value over 0.3
+y = list(df_train.select_dtypes(include=['int64']))
+for i in y:
+    int_var = df_train[i]
+    corre = int_var.corr(df_train['SalePrice'], method='pearson')
+    if abs(corre) > 0.3:
+        print(i, corre)
+    else:
+        pass
+
+#sns.distplot(df_train['YearBuilt'])
+#plt.show()
