@@ -84,9 +84,7 @@ rfe = RFE(model, 12)
 rfe = rfe.fit(X, y)
 print('Selected features: %s' % list(X.columns[rfe.support_]))
 
-#
 # next step is to test this model against the testing data set
-#
 #
 
 #plt.show()
