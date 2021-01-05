@@ -54,6 +54,8 @@ print("Rand Forest: ", acc_titanic_model)'''
 decision_tree_regression = DecisionTreeRegressor(random_state=1)
 decision_tree_regression.fit(X, y)
 dec_tree_pred = decision_tree_regression.predict(test_X)
+
+test_answers = '' # need to import the test answers to verify the results of this model
 '''dec_tree_score = decision_tree_regression.score(X, y)
 acc_dec_tree = round(dec_tree_score * 100, 2)
 print("Decision Tree: ", acc_dec_tree)'''
